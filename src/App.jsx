@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { auth } from "./firebase";
 import SignUp from "./components/SignUp";
 import ItemList from "./components/ItemList";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SignOut from "./components/SignOut";
 
 function App() {
   // useState to track and see if user is logged in or not, default null
@@ -34,23 +36,28 @@ function App() {
   };
 
   return (
-    <>
+    <BrowserRouter>
       <div className="App">
         {/*if authUser is not null then show user signed in, else show sign in component*/}
         {authUser ? (
-          <>
-            <ItemList userID={authUser.uid} />
-            <p>{`Signed In as ${authUser.email}`}</p>
-            <button onClick={userSignOut}>Sign Out</button>
-          </>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ItemList authUser={authUser} userSignOut={userSignOut} />
+              }
+            />
+          </Routes>
         ) : (
           <div>
-            <SignIn />
-            <SignUp />
+            <Routes>
+              <Route path="/" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+            </Routes>
           </div>
         )}
       </div>
-    </>
+    </BrowserRouter>
   );
 }
 
