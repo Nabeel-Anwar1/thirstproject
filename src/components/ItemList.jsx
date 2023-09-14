@@ -1,6 +1,7 @@
 import { useQuery, gql } from "@apollo/client";
 import { useState } from "react";
 import FavouriteButton from "./FavouriteButton";
+import FavouritePage from "./FavouriteList";
 
 //uses apollos graphql functionality to create a query that we can use to access the data we want to see from the graphql database
 const SWAPI_QUERY = gql`
@@ -38,6 +39,11 @@ const ItemList = ({ userID }) => {
           </li>
         ))}
       </ul>
+      <FavouritePage
+        userID={userID}
+        setAddFave={setAddFave}
+        addFave={addFave}
+      />
     </div>
   );
 };
