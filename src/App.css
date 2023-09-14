@@ -21,3 +21,7 @@ margin: 1rem;
 .faveButton {
   background-color: lightblue;
 }
+
+.removeButton {
+  background-color:lightcoral;
+}

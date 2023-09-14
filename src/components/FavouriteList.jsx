@@ -1,15 +1,20 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
+import RemoveFavourite from "./RemoveFavourite";
+
 //passed in from parent component as they are used in other children components
 const FavouritePage = ({ userID, setAddFave, addFave }) => {
   //favourite list set as empty array here, will update the list after getting the doc
   const [faves, setFaves] = useState([]);
   const [loading, isLoading] = useState(false);
+  //
+  const [deletedFave, setDeletedFave] = useState(false);
   //firestore database reference that we want to access
   const faveRef = collection(db, "favourites", userID, "species");
 
   useEffect(() => {
+    setDeletedFave(false);
     //start off by setting setAddFave to false so we can always update when the value changes
     setAddFave(false);
     isLoading(true);
@@ -24,7 +29,7 @@ const FavouritePage = ({ userID, setAddFave, addFave }) => {
       setFaves(faveList);
       isLoading(false);
     });
-  }, [addFave]); //addFave is a dependency, the useEffect will re-run whenever this value changes (when someone clicks the favourite button)
+  }, [deletedFave, addFave]); //addFave and deletedFave are dependencies, the useEffect will re-run whenever this value changes (when someone clicks the favourite button or remove button)
 
   return (
     <div>
@@ -39,6 +44,11 @@ const FavouritePage = ({ userID, setAddFave, addFave }) => {
               return (
                 <li key={faveSpecies.data.speciesID}>
                   {faveSpecies.data.speciesName}
+                  <RemoveFavourite
+                    userID={userID}
+                    faveID={faveSpecies.id}
+                    setDeletedFave={setDeletedFave}
+                  />
                 </li>
               );
             })}
