@@ -31,7 +31,7 @@ describe("Arrives at login page and can sign up", () => {
     //finds password input box and inputs password and presses enter(submit) after
     cy.get("input[name=password]").type("test123{enter}");
     //checks to see if there is a p tag and if it contains the email of the user
-    cy.get("p").should("contain", "Signed In as test@test.com");
+    cy.get("p").should("contain", "Signed In as test999@test.com");
     //signs out after running the above
     cy.contains("Sign Out").click();
   });
