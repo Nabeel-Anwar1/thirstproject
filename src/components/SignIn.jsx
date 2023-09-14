@@ -38,7 +38,7 @@ const SignIn = () => {
 
   //creating a form to login
   return (
-    <div className="sign-in-container">
+    <div className="signInContainer">
       <form onSubmit={signIn}>
         {" "}
         {/*goes to function above on submit*/}
