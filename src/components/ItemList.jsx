@@ -1,8 +1,6 @@
 import { useQuery, gql } from "@apollo/client";
-import { useState } from "react";
 import FavouriteButton from "./FavouriteButton";
-import FavouritePage from "./FavouritePage";
-import SignOut from "./SignOut";
+import { Link } from "react-router-dom";
 
 //uses apollos graphql functionality to create a query that we can use to access the data we want to see from the graphql database
 const SWAPI_QUERY = gql`
@@ -16,9 +14,7 @@ const SWAPI_QUERY = gql`
   }
 `;
 
-const ItemList = ({ authUser, userSignOut }) => {
-  const [addFave, setAddFave] = useState(false);
-
+const ItemList = ({ authUser, setAddFave }) => {
   // loading and error functionality built in with apollo
   const { loading, error, data } = useQuery(SWAPI_QUERY);
   if (loading) return <p>Loading...</p>;
@@ -40,12 +36,7 @@ const ItemList = ({ authUser, userSignOut }) => {
           </li>
         ))}
       </ul>
-      <FavouritePage
-        userID={authUser.uid}
-        setAddFave={setAddFave}
-        addFave={addFave}
-      />
-      <SignOut authUser={authUser} userSignOut={userSignOut} />
+      <Link to="/profile">Profile!</Link>
     </div>
   );
 };

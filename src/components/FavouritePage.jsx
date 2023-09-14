@@ -2,16 +2,18 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import RemoveFavourite from "./RemoveFavourite";
+import SignOut from "./SignOut";
+import { Link } from "react-router-dom";
 
 //passed in from parent component as they are used in other children components
-const FavouritePage = ({ userID, setAddFave, addFave }) => {
+const FavouritePage = ({ authUser, setAddFave, addFave }) => {
   //favourite list set as empty array here, will update the list after getting the doc
   const [faves, setFaves] = useState([]);
   const [loading, isLoading] = useState(false);
   //
   const [deletedFave, setDeletedFave] = useState(false);
   //firestore database reference that we want to access
-  const faveRef = collection(db, "favourites", userID, "species");
+  const faveRef = collection(db, "favourites", authUser.uid, "species");
 
   useEffect(() => {
     setDeletedFave(false);
@@ -45,7 +47,7 @@ const FavouritePage = ({ userID, setAddFave, addFave }) => {
                 <li key={faveSpecies.data.speciesID}>
                   {faveSpecies.data.speciesName}
                   <RemoveFavourite
-                    userID={userID}
+                    userID={authUser.uid}
                     faveID={faveSpecies.id}
                     setDeletedFave={setDeletedFave}
                   />
@@ -55,6 +57,8 @@ const FavouritePage = ({ userID, setAddFave, addFave }) => {
           </ul>
         </>
       )}
+      <Link to="/">Go Back!</Link>
+      <SignOut authUser={authUser} />
     </div>
   );
 };
