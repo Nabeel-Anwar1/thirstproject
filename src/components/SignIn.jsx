@@ -27,7 +27,6 @@ const SignIn = () => {
           err.code === "auth/wrong-password"
         ) {
           setEmail("");
-          setPassword("");
           return alert("Email or Password incorrect");
         } else if (err.code === "auth/email-already-in-use") {
           return alert("An account with this email already exists");
