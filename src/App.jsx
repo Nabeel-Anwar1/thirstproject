@@ -3,6 +3,7 @@ import SignIn from "./components/SignIn";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "./firebase";
+import SignUp from "./components/SignUp";
 
 function App() {
   // useState to track and see if user is logged in or not, default null
@@ -24,7 +25,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className="App">
         {/*if authUser is not null then show user signed in, else show sign in component*/}
         {authUser ? (
           <>
@@ -33,6 +34,7 @@ function App() {
         ) : (
           <div>
             <SignIn />
+            <SignUp />
           </div>
         )}
       </div>

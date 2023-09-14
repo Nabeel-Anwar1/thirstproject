@@ -69,4 +69,4 @@ const SignIn = () => {
 
 export default SignIn;
 
-//currently have made an account using the firebase website manually, need to implement sign up next
+// users able to sign up or log in now
