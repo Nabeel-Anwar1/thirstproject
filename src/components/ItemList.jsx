@@ -14,8 +14,8 @@ const SWAPI_QUERY = gql`
   }
 `;
 
-const ItemList = () => {
-
+const ItemList = ({ userID }) => {
+  const [addFave, setAddFave] = useState(false);
 
   // loading and error functionality built in with apollo
   const { loading, error, data } = useQuery(SWAPI_QUERY);
@@ -30,6 +30,10 @@ const ItemList = () => {
           <li key={species.id}>
             {species.name}
             <FavouriteButton
+              userID={userID}
+              speciesName={species.name}
+              speciesID={species.id}
+              setAddFave={setAddFave}
             />
           </li>
         ))}

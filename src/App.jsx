@@ -39,7 +39,7 @@ function App() {
         {/*if authUser is not null then show user signed in, else show sign in component*/}
         {authUser ? (
           <>
-            <ItemList  />
+            <ItemList userID={authUser.uid} />
             <p>{`Signed In as ${authUser.email}`}</p>
             <button onClick={userSignOut}>Sign Out</button>
           </>
