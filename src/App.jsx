@@ -1,16 +1,17 @@
 import "./App.css";
 import SignIn from "./components/SignIn";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "./firebase";
 import SignUp from "./components/SignUp";
 import ItemList from "./components/ItemList";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SignOut from "./components/SignOut";
+import FavouritePage from "./components/FavouritePage";
 
 function App() {
   // useState to track and see if user is logged in or not, default null
   const [authUser, setAuthUser] = useState(null);
+  const [addFave, setAddFave] = useState(false);
   //runs once when component loads, gets user object if it exists
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
@@ -26,15 +27,6 @@ function App() {
     };
   }, []);
 
-  //sign out button and functionality using firebase
-  const userSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        console.log("sign out successful");
-      })
-      .catch((error) => console.log(error));
-  };
-
   return (
     <BrowserRouter>
       <div className="App">
@@ -43,8 +35,16 @@ function App() {
           <Routes>
             <Route
               path="/"
+              element={<ItemList authUser={authUser} setAddFave={setAddFave} />}
+            />
+            <Route
+              path="/profile"
               element={
-                <ItemList authUser={authUser} userSignOut={userSignOut} />
+                <FavouritePage
+                  authUser={authUser}
+                  setAddFave={setAddFave}
+                  addFave={addFave}
+                />
               }
             />
           </Routes>
