@@ -23,6 +23,15 @@ function App() {
     };
   }, []);
 
+  //sign out button and functionality using firebase 
+  const userSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("sign out successful");
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <>
       <div className="App">
@@ -30,6 +39,7 @@ function App() {
         {authUser ? (
           <>
             <p>{`Signed In as ${authUser.email}`}</p>
+            <button onClick={userSignOut}>Sign Out</button>
           </>
         ) : (
           <div>
