@@ -34,3 +34,24 @@ describe("After login, page should display 37 species of characters", () => {
     cy.contains("Sign Out").click();
   });
 });
+
+describe("After login, user is able to add to favourites list", () => {
+  it("logs in and checks favourite list length and then clicks favourite button and favourite list length should increase by 1", function () {
+    //goes to site
+    cy.visit("http://localhost:5173/");
+    //finds username input box and types email
+    cy.get("input[name=username]").type("test@test.com");
+    //finds password input box and inputs password and presses enter(submit) after
+    cy.get("input[name=password]").type("test123{enter}");
+    //gets the current favourite list length and remembers that length
+    cy.get(".favouritesList > li")
+      .its("length")
+      .then((length) => {
+        cy.contains("Favourite!").click();
+        //clicks one of buttons to add a favourite species and then checks the original list length updates to length + 1
+        cy.get(".favouritesList > li").should("have.length", length++);
+      });
+    //signs out after running the above
+    cy.contains("Sign Out").click();
+  });
+});

@@ -34,7 +34,7 @@ const FavouritePage = ({ userID, setAddFave, addFave }) => {
       ) : (
         <>
           <h1>Favourites</h1>
-          <ul>
+          <ul className="favouritesList">
             {faves.map((faveSpecies) => {
               return (
                 <li key={faveSpecies.data.speciesID}>
